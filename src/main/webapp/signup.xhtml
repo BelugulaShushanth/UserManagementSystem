@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view contentType="text/html"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:p="http://primefaces.org/ui">
+<html>
+
+<h:head>
+  
+  <!-- For Bootstrap responsive grid -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+  
+</h:head>
+
+<h:body>
+
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p:messages globalOnly="true" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p:panel header="Form" styleClass="form-horizontal">
+          <div class="form-group">
+            <h:form id="form">
+            <p:outputLabel value="Username" for="username" styleClass="col-sm-3 control-label" />
+            <div class="col-sm-9">
+              <p:inputText id="username" value="#{user.username}" pt:placeholder="Enter Username" required="true">
+                <f:validateLength minimum="2" />
+              </p:inputText>
+              <p:messages for="username" />
+            </div>
+
+            <p:outputLabel value="Password" for="password" styleClass="col-sm-3 control-label" />
+            <div class="col-sm-9">
+              <p:password id="password" value="#{user.password}" pt:placeholder="Enter Password" required="true">
+                <f:validateLength minimum="2" />
+              </p:password>
+              <p:messages for="password" />
+            </div>
+
+            <p:outputLabel value="Confirm Password" for="confirmPassword" styleClass="col-sm-3 control-label" />
+            <div class="col-sm-9">
+              <p:password id="confirmPassword" value="#{user.confirmPassword}" pt:placeholder="Confirm Password" required="true">
+                <f:validateLength minimum="2" />
+              </p:password>
+              <p:messages for="confirmPassword" />
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-9">
+                <p:commandButton value="Signup" action="#{userController.signup}" ajax="false"
+                                 icon="fa fa-save" />
+              </div>
+            </div>
+            </h:form>
+            <h:form id="form2">
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                  <p:commandButton value="SignIn" action="#{userController.loadSignin}" ajax="false"
+                                   icon="fa fa-save" />
+                </div>
+              </div>
+            </h:form>
+          </div>
+          
+        </p:panel>
+      </div>
+      
+<!--      <div class="col-md-6">-->
+<!--        <p:panel header="Submitted values saved in view scope">-->
+<!--          <p:dataList value="#{formBean.submittedValues}" var="value" type="ordered">-->
+<!--            #{value}-->
+<!--          </p:dataList>-->
+<!--        </p:panel>-->
+<!--      </div>-->
+      
+    </div>
+  </div>
+
+
+</h:body>
+
+</html>
+</f:view>
