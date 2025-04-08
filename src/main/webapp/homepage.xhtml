@@ -29,6 +29,17 @@
                                  icon="fa fa-save" />
             </div>
             </h:form>
+
+            <div class="col-md-6">
+                <p:panel header="User login history">
+                    <label>No of times loggedIn: <p:outputLabel value="#{userController.user().noOfTimesLoggedIn}" />
+                    </label>
+                    <p:dataList value="#{userController.user().userHistories}" var="value" type="ordered">
+                        #{value.date}
+                    </p:dataList>
+                </p:panel>
+            </div>
+
         </div>
 
     </h:body>

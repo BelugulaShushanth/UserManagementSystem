@@ -5,27 +5,21 @@ import lombok.Data;
 import lombok.ToString;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import javax.persistence.*;
-import java.util.List;
 
-@Component("user")
+import javax.persistence.*;
+import java.util.Date;
+
+@Component("userHistory")
 @Scope(FacesViewScope.NAME)
+@Entity
 @Data
 @ToString
-@Entity
-public class User {
+public class UserHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String username;
-    private String password;
-    @Transient
-    private String confirmPassword;
-    private String role;
-    private Integer noOfTimesLoggedIn;
-    @Transient
-    private List<UserHistory> userHistories;
-
-
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+    private Integer userId;
 }

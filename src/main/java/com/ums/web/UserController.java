@@ -1,8 +1,11 @@
 package com.ums.web;
 
 import com.ums.bean.User;
+import com.ums.bean.UserHistory;
+import com.ums.repository.UserHistoryRepository;
 import com.ums.repository.UserRepository;
 import com.ums.service.RoutingService;
+import com.ums.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Component;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Component("userController")
@@ -23,6 +28,13 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private UserHistoryRepository userHistoryRepository;
+
+	@Autowired
+	private UserService userService;
+
 
 	public void submit(){
 
@@ -39,6 +51,10 @@ public class UserController {
 		Optional<User> userOpt = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 		if(userOpt.isPresent()){
 			System.out.println("User found: "+userOpt.get().getUsername());
+			List<UserHistory> userHistory = userService.processUserSignIn(userOpt.get());
+			user.setNoOfTimesLoggedIn(userOpt.get().getNoOfTimesLoggedIn());
+			user.setUserHistories(userHistory);
+			System.out.println(user.getUserHistories());
 			routingService.addMessage("Welcome: "+userOpt.get().getUsername().toUpperCase());
 			routingService.routeTo("homepage.xhtml");
 		}else {
@@ -47,14 +63,17 @@ public class UserController {
 	}
 
 	public void signup() {
-		user.setId(1);
 		System.out.println(user);
-		user.setUsername(user.getUsername().toLowerCase());
-		User user1 = userRepository.save(user);
-		if (user1 != null){
-			routingService.addMessage("Signed up successfully");
-		}else{
-			routingService.addMessage("Error signing up");
+		if(userRepository.findByUsername(user.getUsername()).isPresent()){
+			routingService.addMessage("User already exists");
+		}else {
+			user.setUsername(user.getUsername().toLowerCase());
+			User user1 = userRepository.save(user);
+			if (user1 != null) {
+				routingService.addMessage("Signed up successfully");
+			} else {
+				routingService.addMessage("Error signing up");
+			}
 		}
 	}
 
@@ -63,13 +82,17 @@ public class UserController {
 		routingService.routeTo("signin.xhtml");
 	}
 
+	public User user(){
+		return user;
+	}
 
-	
+
+
 //	public void reset() {
 //	    formBean.getSubmittedValues().clear();
 //	    formBean.setField(null);
 //
 //        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Form reset."));
 //	}
-	
+
 }
