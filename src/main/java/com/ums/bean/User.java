@@ -24,6 +24,8 @@ public class User {
     private String confirmPassword;
     private String role;
     private Integer noOfTimesLoggedIn;
+    private String emailId;
+    private String phNo;
     @Transient
     private List<UserHistory> userHistories;
 

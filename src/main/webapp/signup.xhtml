@@ -39,6 +39,22 @@
               <p:messages for="username" />
             </div>
 
+              <p:outputLabel value="EmailId" for="emailId" styleClass="col-sm-3 control-label" />
+              <div class="col-sm-9">
+                <p:inputText id="emailId" value="#{user.emailId}" pt:placeholder="Enter email id" required="true">
+                  <f:validateLength minimum="2" />
+                </p:inputText>
+                <p:messages for="emailId" />
+              </div>
+
+              <p:outputLabel value="phNo" for="phNo" styleClass="col-sm-3 control-label" />
+              <div class="col-sm-9">
+                <p:inputText id="phNo" value="#{user.phNo}" pt:placeholder="Enter phone no" required="true">
+                  <f:validateLength minimum="2" />
+                </p:inputText>
+                <p:messages for="phNo" />
+              </div>
+
             <p:outputLabel value="Password" for="password" styleClass="col-sm-3 control-label" />
             <div class="col-sm-9">
               <p:password id="password" value="#{user.password}" pt:placeholder="Enter Password" required="true">
@@ -54,6 +70,16 @@
               </p:password>
               <p:messages for="confirmPassword" />
             </div>
+
+              <p:outputLabel value="Role" for="role" styleClass="col-sm-3 control-label" />
+              <div class="col-sm-9">
+                <p:selectOneMenu id="role" value="#{user.role}">
+                  <f:selectItem itemLabel="Select a role" itemValue="" />
+                  <f:selectItem itemLabel="ROLE_USER" itemValue="ROLE_USER" />
+                  <f:selectItem itemLabel="ROLE_ADMIN" itemValue="ROLE_ADMIN" />
+                </p:selectOneMenu>
+                <p:messages for="role" />
+              </div>
 
             <div class="form-group">
               <div class="col-sm-offset-3 col-sm-9">
@@ -74,14 +100,7 @@
           
         </p:panel>
       </div>
-      
-<!--      <div class="col-md-6">-->
-<!--        <p:panel header="Submitted values saved in view scope">-->
-<!--          <p:dataList value="#{formBean.submittedValues}" var="value" type="ordered">-->
-<!--            #{value}-->
-<!--          </p:dataList>-->
-<!--        </p:panel>-->
-<!--      </div>-->
+
       
     </div>
   </div>

@@ -16,6 +16,7 @@
     </h:head>
 
     <h:body>
+
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -53,24 +54,51 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                     <p:outputLabel value="#{userController.getUiDto().message}" />
+                    <p:messages globalOnly="true" />
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <p:panel header="User login history">
-                    <label>No of times loggedIn: <p:outputLabel value="#{userController.user().noOfTimesLoggedIn}" />
-                    </label>
-                    <p:dataList value="#{userController.user().userHistories}" var="value" type="ordered">
-                        #{value.date}
-                    </p:dataList>
-                </p:panel>
-            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p:panel header="Form" styleClass="form-horizontal">
+                        <div class="form-group">
+                            <h:form id="form">
+                                <p:outputLabel value="Product Name" for="pName" styleClass="col-sm-3 control-label" />
+                                <div class="col-sm-9">
+                                    <p:inputText id="pName" value="#{product.name}" pt:placeholder="Enter product name" required="true">
+                                        <f:validateLength minimum="2" />
+                                    </p:inputText>
+                                    <p:messages for="pName" />
+                                </div>
 
+                                <p:outputLabel value="Product description" for="pDesc" styleClass="col-sm-3 control-label" />
+                                <div class="col-sm-9">
+                                    <p:inputText id="pDesc" value="#{product.desc}" pt:placeholder="Enter product desc" required="true">
+                                        <f:validateLength minimum="2" />
+                                    </p:inputText>
+                                    <p:messages for="pDesc" />
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                        <p:commandButton value="Add Product" action="#{userController.addProduct}" ajax="false"
+                                                         icon="fa fa-save" />
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+
+                    </p:panel>
+                </div>
+
+
+            </div>
         </div>
+
 
     </h:body>
 

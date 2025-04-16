@@ -16,6 +16,6 @@ public class RoutingService {
     public void routeTo(String page){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-        navigationHandler.handleNavigation(FacesContext.getCurrentInstance(), null, page);
+        navigationHandler.handleNavigation(FacesContext.getCurrentInstance(), null, page+"?faces-redirect=true");
     }
 }

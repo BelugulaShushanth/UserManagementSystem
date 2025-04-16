@@ -2,8 +2,11 @@ package com.ums.config;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
 
 import javax.faces.context.FacesContext;
+import javax.faces.webapp.FacesServlet;
 import java.util.Map;
 
 public class FacesViewScope implements Scope {
@@ -47,4 +50,9 @@ public class FacesViewScope implements Scope {
     public Object resolveContextualObject(String key) {
         return null;
     }
+
+//    @Bean
+//    public ServletRegistrationBean jsfServletRegistration() {
+//        return new ServletRegistrationBean(new FacesServlet(), "*.xhtml");
+//    }
 }

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view contentType="text/html"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+        xmlns:p="http://primefaces.org/ui">
+    <html>
+
+    <h:head>
+
+        <!-- For Bootstrap responsive grid -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+        <style>
+            .edit{
+            pointer-events: none;
+          opacity: 0.5;
+          background-color: #f0f0f0;
+            }
+        </style>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+        console.log("DOM is ready!");
+        // Your code here
+      });
+            window.onload = () {
+            console.log("DOM is ready22!");
+
+              const username = document.getElementById('username');
+                const emailId = document.getElementById('emailId');
+                const phNo = document.getElementById('phNo');
+                username.classList.add('edit');
+                emailId.classList.add('edit');
+                phNo.classList.add('edit');
+            }
+            function toggleDisabled() {
+                const username = document.getElementById('username');
+                const emailId = document.getElementById('emailId');
+                const phNo = document.getElementById('phNo');
+                username.classList.remove('edit');
+                emailId.classList.remove('edit');
+                phNo.classList.remove('edit');
+
+              }
+
+        </script>
+
+    </h:head>
+
+    <h:body>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">User Management System</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/homepage.jsf">Dashboard <span class="sr-only">(current)</span></a></li>
+                        <li><a href="/products.jsf">Products</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search" />
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/profile.jsf">Profile</a></li>
+                        <h:form id="signout">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <p:commandButton value="SignOut" action="#{userController.signout}" ajax="false"
+                                                 icon="fa fa-save" />
+                            </div>
+                        </h:form>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p:messages globalOnly="true" />
+                </div>
+            </div>
+
+            <f:metadata>
+                <f:event type="preRenderView" listener="#{userController.getUiDto()}" />
+            </f:metadata>
+            <div class="row">
+                <div class="col-md-6">
+                    <p:panel header="Profile details" styleClass="form-horizontal">
+                        <div class="form-group">
+
+                            <h:form id="form">
+                                <p:outputLabel value="Username" for="username" styleClass="col-sm-3 control-label" />
+                                <div class="col-sm-9">
+                                    <p:inputText  id="username" value="#{userController.getUiDto().user.username}" pt:placeholder="Enter Username" required="true" >
+                                        <f:validateLength minimum="2" />
+                                    </p:inputText>
+                                    <p:messages for="username" />
+                                </div>
+
+                                <p:outputLabel value="EmailId" for="emailId" styleClass="col-sm-3 control-label" />
+                                <div class="col-sm-9">
+                                    <p:inputText id="emailId" value="#{user.emailId}" pt:placeholder="Enter email id" required="true">
+                                        <f:validateLength minimum="2" />
+                                    </p:inputText>
+                                    <p:messages for="emailId" />
+                                </div>
+
+                                <p:outputLabel value="phNo" for="phNo" styleClass="col-sm-3 control-label" />
+                                <div class="col-sm-9">
+                                    <p:inputText id="phNo" value="#{user.phNo}" pt:placeholder="Enter phone no" required="true">
+                                        <f:validateLength minimum="2" />
+                                    </p:inputText>
+                                    <p:messages for="phNo" />
+                                </div>
+
+                                Role: <p:outputLabel value="#{userController.getUiDto().user.role}" />
+                                    <br/>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                        <p:commandButton value="Save" action="#{userController.saveUser}" ajax="false"
+                                                         icon="fa fa-save" />
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+
+                    </p:panel>
+                </div>
+
+            </div>
+        </div>
+
+
+    </h:body>
+
+    </html>
+</f:view>
