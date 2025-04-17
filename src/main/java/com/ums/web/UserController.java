@@ -65,13 +65,17 @@ public class UserController {
 		if(userRepository.findByUsername(user.getUsername()).isPresent()){
 			routingService.addMessage("User already exists");
 		}else {
-			user.setUsername(user.getUsername().toLowerCase());
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			User user1 = userRepository.save(user);
-			if (user1 != null) {
-				routingService.addMessage("Signed up successfully");
-			} else {
-				routingService.addMessage("Error signing up");
+			if(user.getPassword().equals(user.getConfirmPassword())) {
+				user.setUsername(user.getUsername().toLowerCase());
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+				User user1 = userRepository.save(user);
+				if (user1 != null) {
+					routingService.addMessage("Signed up successfully");
+				} else {
+					routingService.addMessage("Error signing up");
+				}
+			}else{
+				routingService.addMessage("Password and confirm password should be same");
 			}
 		}
 	}
@@ -137,6 +141,12 @@ public class UserController {
 	public void addProduct(){
 		productRepository.save(product);
 		routingService.routeTo("products.xhtml");
+	}
+
+	public boolean isError(){
+		String error = FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap().get("error");
+		return error!=null && error.equals("true");
 	}
 
 

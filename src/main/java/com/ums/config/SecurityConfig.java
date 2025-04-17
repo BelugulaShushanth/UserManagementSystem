@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/signin.xhtml","/signup.xhtml", "/signin.jsf","/signup.jsf",
                         "/javax.faces.resource/**", "/error", "/resources/**", "/static/**",
                         "/css/**", "/js/**", "/images/**", "/fonts/**", "/vendor/**", "/h2-console/**").permitAll()
+                .antMatchers("/products.xhtml", "/products.jsf").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
